@@ -14,7 +14,6 @@ while True:
         client_socket.send(str(a).encode('utf-8'))
         client_socket.send(str(b).encode('utf-8'))
 
-        # Получаем результат от сервера
         result = client_socket.recv(1024).decode('utf-8')
 
         print("Hypotenuse: {}".format(result))
