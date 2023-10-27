@@ -6,6 +6,9 @@ from .forms import CarOwnerForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import CarForm
+from django.contrib.auth.forms import UserCreationForm
+from .forms import UserProfileForm
+from django.contrib.auth import authenticate, login
 
 def list_owners(request):
     owners = CarOwner.objects.all()
@@ -48,3 +51,18 @@ class CarDeleteView(DeleteView):
     model = Car
     template_name = 'car_confirm_delete.html'
     success_url = reverse_lazy('cars_list')
+
+def register(request):
+    if request.method == 'POST':
+        user_form = UserCreationForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
+            return redirect('login')
+    else:
+        user_form = UserCreationForm()
+        profile_form = UserProfileForm()
+    return render(request, 'registration/register.html', {'user_form': user_form, 'profile_form': profile_form})

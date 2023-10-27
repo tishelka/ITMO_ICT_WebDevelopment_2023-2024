@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class CarOwner(models.Model):
     name = models.CharField(max_length=30)
@@ -23,3 +24,9 @@ class Car(models.Model):
     model = models.CharField(max_length=20)
     color = models.CharField(max_length=30)
     owners = models.ManyToManyField(CarOwner, through='Ownership')
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    passport_number = models.CharField(max_length=20)
+    home_address = models.TextField()
+    nationality = models.CharField(max_length=40)
