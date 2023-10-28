@@ -1,0 +1,6 @@
+<h2>Вы действительно хотите удалить {{ conference.title }}?</h2>
+<form method="post">
+  {% csrf_token %}
+  <input type="submit" value="Удалить" />
+</form>
+<a href="{% url 'home' %}">Отмена</a>

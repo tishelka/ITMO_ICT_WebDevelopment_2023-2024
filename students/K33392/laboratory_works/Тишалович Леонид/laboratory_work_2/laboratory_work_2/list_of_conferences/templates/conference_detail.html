@@ -1,0 +1,20 @@
+<h1>{{ conference.title }}</h1>
+<p>{{ conference.description }}</p>
+<p>Location: {{ conference.location }}</p>
+<p>Start Date: {{ conference.start_date }}</p>
+<p>End Date: {{ conference.end_date }}</p>
+<p>Conditions: {{ conference.participation_conditions }}</p>
+
+<h2>Registrations</h2>
+<ul>
+  {% for registration in registrations %}
+  <li>{{ registration.user.username }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Reviews</h2>
+<ul>
+  {% for review in reviews %}
+  <li>{{ review.user.username }} - {{ review.text }} ({{ review.rating }})</li>
+  {% endfor %}
+</ul>
