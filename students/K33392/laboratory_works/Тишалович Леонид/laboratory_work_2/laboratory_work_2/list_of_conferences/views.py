@@ -67,7 +67,6 @@ def user_login(request):
 # Главная страница авторизованного пользователя.
 @login_required  # Требуется вход.
 def home(request):
-
     # Извлекаем конференции, созданные текущим пользователем.
     user_conferences = Conference.objects.filter(author=request.user)
     # Извлекаем все остальные конференции.
