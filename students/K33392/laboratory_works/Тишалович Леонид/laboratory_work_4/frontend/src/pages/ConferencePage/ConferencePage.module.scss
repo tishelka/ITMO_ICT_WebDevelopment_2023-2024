@@ -1,0 +1,50 @@
+.confPageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+
+  .confInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .confPageReviews {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .confReview {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .confReviewForm {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .confOrd {
+        height: 35px;
+        width: 260px;
+      }
+
+      .confArea {
+        height: 50px;
+        width: 260px;
+      }
+
+      .submitBtn {
+        height: 35px;
+        width: 260px;
+        border-radius: 7px;
+        border: none;
+        cursor: pointer;
+        background-color: rgb(75, 172, 232);
+        color: white;
+      }
+    }
+  }
+}

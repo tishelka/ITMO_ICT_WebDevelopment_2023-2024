@@ -14,7 +14,7 @@ class ConfrenceViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         # Определяем класс сериализатора в зависимости от выполняемого действия
         if self.action in ['list', 'retrieve']:
-            print(1)  # Для отладки: печатаем '1' при выполнении действий list или retrieve
+            print(1) 
             return serializers.ShowConferenceSerializer  # Используем определенный сериализатор для действий list и retrieve
         return serializers.ConferenceSerializer  # Для других действий используем другой сериализатор
 
