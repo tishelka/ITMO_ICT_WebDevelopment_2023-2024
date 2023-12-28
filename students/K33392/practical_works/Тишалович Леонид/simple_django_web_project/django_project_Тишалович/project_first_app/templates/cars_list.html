@@ -1,6 +1,0 @@
-<h2>Список автомобилей:</h2>
-<ul>
-  {% for car in cars %}
-  <li><a href="{% url 'car_detail' car.id %}">{{ car.model }}</a></li>
-  {% endfor %}
-</ul>

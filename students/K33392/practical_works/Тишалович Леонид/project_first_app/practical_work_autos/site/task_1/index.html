@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://practical3.com/task_1/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Задание 1 - Practical work 3</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Practical work 3</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Задание 1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../task_2/" class="nav-link">Задание 2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../task_3/" class="nav-link">Задание 3</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../task_2/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#1" class="nav-link">Задание 1</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#add_datepy" class="nav-link">add_date.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Вывод результата</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="1">Задание 1</h1>
+<p>Напишите запрос на создание 6-7 новых автовладельцев и 5-6 автомобилей, каждому автовладельцу назначьте удостоверение и от 1 до 3 автомобилей. Задание можете выполнить либо в интерактивном режиме интерпретатора, либо в отдельном python-файле. Результатом должны стать запросы и отображение созданных объектов.</p>
+<h2 id="add_datepy">add_date.py</h2>
+<p>В коде были реализованы функции сощдания объекта и их последующее использование.</p>
+<pre><code>import os
+from datetime import datetime
+from django.conf import settings
+
+os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;django_first_app.settings&quot;)
+import django
+django.setup()
+
+from blog.models import CustomUser, Auto, Ownership, DrivingLicence
+
+def create_users():
+    user_data = [
+        {&quot;last_name&quot;: &quot;Тишалович&quot;, &quot;first_name&quot;: &quot;Леонид&quot;},
+        {&quot;last_name&quot;: &quot;Болотов&quot;, &quot;first_name&quot;: &quot;Игорь&quot;},
+        {&quot;last_name&quot;: &quot;Михайлушкин&quot;, &quot;first_name&quot;: &quot;Георгий&quot;},
+        {&quot;last_name&quot;: &quot;Круглова&quot;, &quot;first_name&quot;: &quot;Ольга&quot;},
+        {&quot;last_name&quot;: &quot;Васильев&quot;, &quot;first_name&quot;: &quot;Александр&quot;},
+        {&quot;last_name&quot;: &quot;Дмитриева&quot;, &quot;first_name&quot;: &quot;Александра&quot;},
+    ]
+    return [CustomUser(last_name=user['last_name'], first_name=user['first_name'], birthdate=datetime.now()) for user in user_data]
+
+def create_cars():
+    car_data = [
+        {&quot;state_number&quot;: &quot;F457CC70&quot;, &quot;brand&quot;: &quot;Haval&quot;, &quot;model&quot;: &quot;Jolion&quot;, &quot;color&quot;: &quot;красный&quot;},
+        {&quot;state_number&quot;: &quot;Q128IU70&quot;, &quot;brand&quot;: &quot;Lada&quot;, &quot;model&quot;: &quot;Kalina&quot;, &quot;color&quot;: &quot;синий&quot;},
+        {&quot;state_number&quot;: &quot;J094JK70&quot;, &quot;brand&quot;: &quot;Foed&quot;, &quot;model&quot;: &quot;Mustang&quot;, &quot;color&quot;: &quot;жёлтый&quot;},
+        {&quot;state_number&quot;: &quot;J568RF70&quot;, &quot;brand&quot;: &quot;Hyundai&quot;, &quot;model&quot;: &quot;Solaris&quot;, &quot;color&quot;: &quot;чёрный&quot;},
+        {&quot;state_number&quot;: &quot;S271NK70&quot;, &quot;brand&quot;: &quot;Skoda&quot;, &quot;model&quot;: &quot;Octavia&quot;, &quot;color&quot;: &quot;серый&quot;},
+        {&quot;state_number&quot;: &quot;C027WE70&quot;, &quot;brand&quot;: &quot;Toyota&quot;, &quot;model&quot;: &quot;Outlander&quot;, &quot;color&quot;: &quot;бирёзовый&quot;},
+    ]
+    return [Auto(**car) for car in car_data]
+
+def create_relationships(owners, cars):
+    return [Ownership(owner=owners[i], auto=cars[i], start_date=datetime.now()) for i in range(len(owners))]
+
+def create_licences(owners):
+    return [DrivingLicence(owner=owner, number=str(index + 1) * 10, type=&quot;B&quot;, start_date=datetime.now()) for index, owner in enumerate(owners)]
+
+owners = create_users()
+cars = create_cars()
+ownerships = create_relationships(owners, cars)
+licences = create_licences(owners)
+
+CustomUser.objects.bulk_create(owners)
+Auto.objects.bulk_create(cars)
+Ownership.objects.bulk_create(ownerships)
+DrivingLicence.objects.bulk_create(licences)
+
+print(&quot;Автовладельцы:&quot;)
+for owner in owners:
+    print(f&quot;{owner.last_name} {owner.first_name} - {owner.birthdate}&quot;)
+
+print(&quot;\nАвтомобили:&quot;)
+for car in cars:
+    print(f&quot;{car.brand} {car.model} ({car.state_number})&quot;)
+
+print(&quot;\nВладения:&quot;)
+for ownership in ownerships:
+    print(f&quot;{ownership.owner.last_name} {ownership.owner.first_name} владеет {ownership.auto.brand} {ownership.auto.model}&quot;)
+
+print(&quot;\nЛицензии:&quot;)
+for licence in licences:
+    print(f&quot;{licence.owner.last_name} {licence.owner.first_name} - {licence.number}&quot;)
+</code></pre>
+<h2 id="_1">Вывод результата</h2>
+<p><img alt="Задание 1" src="../img/task1.png" /></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

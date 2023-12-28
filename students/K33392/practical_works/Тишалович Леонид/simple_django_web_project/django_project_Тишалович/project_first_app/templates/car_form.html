@@ -1,7 +1,0 @@
-<h2>{% if object %}Редактировать{% else %}Добавить{% endif %} автомобиль</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">
-    {% if object %}Обновить{% else %}Добавить{% endif %}
-  </button>
-</form>
