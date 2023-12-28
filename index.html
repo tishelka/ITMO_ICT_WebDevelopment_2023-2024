@@ -4,23 +4,23 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
         
         
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Задание 1 - My Docs</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>My Docs</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body>
+    <body class="homepage">
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">My Docs</a>
+                <a class="navbar-brand" href=".">My Docs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -30,17 +30,17 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Задание 1</a>
-                            </li>
                             <li class="navitem active">
-                                <a href="./" class="nav-link">Задание 1</a>
+                                <a href="." class="nav-link">Задание 1</a>
                             </li>
                             <li class="navitem">
-                                <a href="../task_2/" class="nav-link">Задание 2</a>
+                                <a href="task_1/" class="nav-link">Задание 1</a>
                             </li>
                             <li class="navitem">
-                                <a href="../task_3/" class="nav-link">Задание 3</a>
+                                <a href="task_2/" class="nav-link">Задание 2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="task_3/" class="nav-link">Задание 3</a>
                             </li>
                         </ul>
 
@@ -51,12 +51,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" class="nav-link disabled">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../task_2/" class="nav-link">
+                                <a rel="next" href="task_1/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -85,6 +85,32 @@
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Вывод результата</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#2" class="nav-link">Задание 2</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#filterpy" class="nav-link">filter.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Вывод результата</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#3" class="nav-link">Задание 3</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#aggregate_datepy" class="nav-link">aggregate_date.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link">Вывод результата:</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -164,7 +190,103 @@ for licence in licences:
     print(f&quot;{licence.owner.last_name} {licence.owner.first_name} - {licence.number}&quot;)
 </code></pre>
 <h2 id="_1">Вывод результата</h2>
-<p><img alt="Задание 1" src="../img/task1.png" /></p></div>
+<p><img alt="Задание 1" src="img/task1.png" /></p>
+<h1 id="2">Задание 2</h1>
+<p>По созданным в пр.1 данным написать следующие запросы на фильтрацию:</p>
+<p>Где это необходимо, добавьте related_name к полям модели
+Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть)
+Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение)
+Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса)
+Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует)
+Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе)</p>
+<h2 id="filterpy">filter.py</h2>
+<p>В коде были реализованы функции для получения объектов с необходимой фильтрацией и их последующее применение</p>
+<pre><code>    import os
+
+    import django
+
+    os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;django_first_app.settings&quot;)
+    django.setup()
+
+    from django.utils import timezone
+    from blog.models import CustomUser, Auto, Ownership, DrivingLicence
+
+    toyota_cars = Auto.objects.filter(brand=&quot;Toyota&quot;).all()
+
+    maks_owners = CustomUser.objects.filter(first_name=&quot;Максим&quot;).all()
+
+    random_owner_id = CustomUser.objects.order_by(&quot;?&quot;).values_list(&quot;id&quot;, flat=True).first()
+    random_owner_licence = DrivingLicence.objects.get(owner_id=random_owner_id)
+
+    black_car_owners = CustomUser.objects.filter(ownerships__auto__color=&quot;черный&quot;).all()
+
+    this_year_owners = CustomUser.objects.filter(licences__start_date__year=timezone.now().year).all()
+
+
+    print(
+        f&quot;Автомобили Toyota: {toyota_cars}&quot;,
+        f&quot;Автовладельцы Максимы: {maks_owners}&quot;,
+        f&quot;Лицензия случайного автовладельца: {random_owner_licence}&quot;,
+        f&quot;Владельцы черных автомобилей: {black_car_owners}&quot;,
+        f&quot;Владельцы, получившие лицензию в этом году: {this_year_owners}&quot;,
+        sep=&quot;\n\n&quot;,
+    )
+</code></pre>
+<h2 id="_2">Вывод результата</h2>
+<p><img alt="Задание 2" src="img/task2.png" /></p>
+<h1 id="3">Задание 3</h1>
+<p>Необходимо реализовать следующие запросы c применением описанных методов:
+Вывод даты выдачи самого старшего водительского удостоверения
+Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе
+Выведите количество машин для каждого водителя
+Подсчитайте количество машин каждой марки
+Отсортируйте всех автовладельцев по дате выдачи удостоверения (Примечание: чтобы не выводить несколько раз одни и те же таблицы воспользуйтесь методом .distinct()</p>
+<h2 id="aggregate_datepy">aggregate_date.py</h2>
+<p>В коде были реализованы функции для получения необходимых агрегированных данных и их последующее применение</p>
+<pre><code>import os
+import django
+from django.db.models import Min, Max, Count
+
+os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;django_first_app.settings&quot;)
+django.setup()
+from blog.models import CustomUser, Auto, Ownership, DrivingLicence
+
+def get_oldest_licence_date():
+    return DrivingLicence.objects.aggregate(Min(&quot;start_date&quot;))['start_date__min']
+
+def get_newest_ownership_date():
+    return Ownership.objects.aggregate(Max(&quot;start_date&quot;))['start_date__max']
+
+def get_ownerships_counts():
+    return CustomUser.objects.annotate(count=Count(&quot;ownerships&quot;))
+
+def get_cars_count_by_brands():
+    return Auto.objects.values(&quot;brand&quot;).annotate(count=Count(&quot;id&quot;))
+
+def get_sorted_owners():
+    return CustomUser.objects.order_by(&quot;ownerships__start_date&quot;)
+
+oldest_licence = get_oldest_licence_date()
+newest_ownership = get_newest_ownership_date()
+ownerships_counts = get_ownerships_counts()
+cars_count_by_brands = get_cars_count_by_brands()
+sorted_owners = get_sorted_owners()
+
+ownerships_counts_str = [f&quot;{owner.full_name}: {owner.count}&quot; for owner in ownerships_counts]
+cars_count_by_brands_str = [f&quot;{car['brand']}: {car['count']}&quot; for car in cars_count_by_brands]
+
+print(
+    f&quot;Дата самого старшего удостоверения: {oldest_licence}&quot;,
+    f&quot;Самая поздняя дата авто владения: {newest_ownership}&quot;,
+    f&quot;Количество машин для каждого водителя: {ownerships_counts_str}&quot;,
+    f&quot;Количество машин каждой марки: {cars_count_by_brands_str}&quot;,
+    f&quot;Автовладельцы, отсортированные по дате выдачи удостоверения: {sorted_owners}&quot;,
+    sep=&quot;\n\n&quot;,
+)
+
+</code></pre>
+<h2 id="_3">Вывод результата:</h2>
+<p><img alt="Задание 3" src="img/task3.png" /></p></div>
             </div>
         </div>
 
@@ -172,14 +294,14 @@ for licence in licences:
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="../js/jquery-3.6.0.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script>
-            var base_url = "..",
+            var base_url = ".",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js"></script>
-        <script src="../search/main.js"></script>
+        <script src="js/base.js"></script>
+        <script src="search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -244,3 +366,8 @@ for licence in licences:
 
     </body>
 </html>
+
+<!--
+MkDocs version : 1.5.2
+Build Date UTC : 2023-12-28 21:45:18.911709+00:00
+-->
