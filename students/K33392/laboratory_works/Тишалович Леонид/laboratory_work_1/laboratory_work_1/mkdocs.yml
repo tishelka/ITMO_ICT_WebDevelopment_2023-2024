@@ -1,4 +1,5 @@
 site_name: Лабораторная работа №1. Тишалович Леонид. K33392
+site_url: https://lab1docs.com
 nav:
   - Задание 1: task1.md
   - Задание 2: task2.md

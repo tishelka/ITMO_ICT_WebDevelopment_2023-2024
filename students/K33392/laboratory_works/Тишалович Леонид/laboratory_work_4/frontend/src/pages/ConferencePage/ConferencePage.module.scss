@@ -10,6 +10,26 @@
     gap: 20px;
   }
 
+  .submitBtn {
+    height: 35px;
+    width: 260px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(75, 172, 232);
+    color: white;
+  }
+
+  .deleteBtn {
+    height: 35px;
+    width: 260px;
+    border-radius: 7px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(218, 35, 35);
+    color: white;
+  }
+
   .confPageReviews {
     display: flex;
     flex-direction: column;

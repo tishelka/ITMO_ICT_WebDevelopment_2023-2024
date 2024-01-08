@@ -3,6 +3,7 @@ import { SignInPage } from "./pages/SignInPage";
 import { MainPage } from "./pages/MainPage";
 import { ConferencePage } from "./pages/ConferencePage";
 import { ConferenceCreatePage } from "./pages/ConferenceCreatePage";
+import { ConferenceEditPage } from "./pages/ConferenceEditPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           path="conference_create"
           element={<ConferenceCreatePage />}
         ></Route>
+        <Route path="/conference_edit/:id" element={<ConferenceEditPage />} />
       </Routes>
     </Router>
   );

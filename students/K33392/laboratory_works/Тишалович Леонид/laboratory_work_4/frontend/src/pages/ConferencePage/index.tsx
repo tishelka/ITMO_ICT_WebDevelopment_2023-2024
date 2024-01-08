@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import style from "./ConferencePage.module.scss";
 import { ConferenceData } from "../MainPage";
+import { Link } from "react-router-dom";
 
 type Review = {
   id: number;
@@ -23,6 +24,8 @@ export const ConferencePage = () => {
   const [reviewRating, setReviewRating] = useState(1);
   const authToken = localStorage.getItem("authToken");
   const userId = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchConferenceDetails = async () => {
@@ -107,6 +110,28 @@ export const ConferencePage = () => {
     return <div>Конференция не найдена</div>;
   }
 
+  const handleDelete = async () => {
+    if (window.confirm("Вы уверены, что хотите удалить эту конференцию?")) {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+        const response = await axios.delete(
+          `http://127.0.0.1:8000/main/conferences/${id}/`,
+          { headers }
+        );
+
+        if (response.status === 204) {
+          alert("Конференция успешно удалена");
+          nav("/main");
+        }
+      } catch (error) {
+        console.error("Ошибка при удалении конференции:", error);
+        alert("Не удалось удалить конференцию");
+      }
+    }
+  };
+
   return (
     <div className={style.confPageContainer}>
       <div className={style.confInfo}>
@@ -121,6 +146,20 @@ export const ConferencePage = () => {
         <p>Дата окончания: {conference.end_date}</p>
         <p>Условия участия: {conference.participation_conditions}</p>
       </div>
+      <>
+        {username == conference.author ? (
+          <>
+            <Link to={`/conference_edit/${id}`}>
+              <button className={style.submitBtn}>Редактировать</button>
+            </Link>
+            <button className={style.deleteBtn} onClick={handleDelete}>
+              Удалить
+            </button>
+          </>
+        ) : (
+          <></>
+        )}
+      </>
       <div className={style.confPageReviews}>
         <h2>Отзывы:</h2>
         {reviews.map((review) => (
