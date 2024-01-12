@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №3 - Документации ко всем ЛР</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Документации ко всем ЛР</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_2/" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №3</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_4/" class="nav-link">Лабораторная работа №4</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_2/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../lab_4/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no3" class="nav-link">Лабораторная работа №3</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#permissionspy" class="nav-link">permissions.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Краткое пояснение</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serializerspy" class="nav-link">serializers.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Крвткое пояснение</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#viewspy" class="nav-link">views.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no3">Лабораторная работа №3</h1>
+<h2 id="permissionspy">permissions.py</h2>
+<p>`</p>
+<pre><code>class ProfilePermissions(BasePermission): # Создание пользовательского класса разрешений, основанного на BasePermission
+
+    def has_object_permission(self, request, view, obj):
+        # Определение метода проверки разрешений для объекта
+        print(obj)  # Вывести объект для отладки
+
+        # Проверить, равен ли пользователь, отправивший запрос, объекту
+        if request.user == obj:
+            return True  # Вернуть True, если пользователь имеет доступ к объекту
+        return False  # В противном случае вернуть False
+
+class RegistrationsPermissions(BasePermission): # Создание другого пользовательского класса разрешений, также основанного на BasePermission
+
+    def has_object_permission(self, request, view, obj):
+        # Определение метода проверки разрешений для объекта
+
+        # Проверить, является ли пользователь, отправивший запрос, владельцем объекта регистрации
+        if request.user == obj.user:
+            return True  # Вернуть True, если пользователь имеет доступ к объекту регистрации
+        return False  # В противном случае вернуть False
+</code></pre>
+<p>`</p>
+<h2 id="_1">Краткое пояснение</h2>
+<p>Пермишены в Django REST Framework используются для контроля доступа к объектам и действиям в API. Они определяют, может ли пользователь выполнять определенное действие с объектом.</p>
+<h2 id="serializerspy">serializers.py</h2>
+<p>`</p>
+<pre><code>class TopicSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Topic
+    class Meta:
+        model = Topic
+        fields = "__all__"  # Включаем все поля модели в сериализацию
+
+class ConferenceSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Conference
+    class Meta:
+        model = Conference
+        fields = ['title', 'topics', 'location', 'start_date', 'end_date',
+                'description', 'participation_conditions']
+    # Определяем, какие поля модели будут сериализованы
+
+class ShowConferenceSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Conference с дополнительной информацией (например, автор конференции)
+    author = serializers.CharField(source='author.username')  # Используем CharField для отображения имени автора
+    topics = TopicSerializer(many=True, read_only=True)  # Добавляем сериализатор для связанных тем
+
+    class Meta:
+        model = Conference
+        fields = ['author', 'title', 'topics', 'location', 'start_date', 'end_date',
+                'description', 'participation_conditions']
+    # Определяем, какие поля модели будут сериализованы, включая дополнительную информацию
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Registration
+    class Meta:
+        model = Registration
+        fields = "__all__"  # Включаем все поля модели в сериализацию
+
+class ShowRegistrationSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Registration с дополнительной информацией (например, связанные объекты)
+    conference = ShowConferenceSerializer(read_only=True)  # Сериализатор для связанной конференции
+    topic = TopicSerializer(read_only=True)  # Сериализатор для связанной темы
+
+    class Meta:
+        model = Registration
+        fields = ['user', 'conference', 'topic', 'is_approved']
+    # Определяем, какие поля модели будут сериализованы, включая дополнительную информацию
+
+class ReviewSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Review
+    class Meta:
+        model = Review
+        fields = '__all__'  # Включаем все поля модели в сериализацию
+
+class ShowReviewSerializer(serializers.ModelSerializer):
+    # Сериализатор для модели Review с дополнительной информацией (например, связанные объекты)
+    conference = ShowConferenceSerializer(read_only=True)  # Сериализатор для связанной конференции
+
+    class Meta:
+        model = Review
+        fields = ['conference', 'text', 'user', 'comment_date', 'comment_text', 'rating']
+    # Определяем, какие поля модели будут сериализованы, включая дополнительную информацию
+
+class ProfileSerilaizer(serializers.ModelSerializer):
+    # Сериализатор для модели User (профиль пользователя)
+    authored_conferences = ShowConferenceSerializer(many=True, read_only=True)  # Сериализатор для конференций, созданных пользователем
+    registered_in = ShowRegistrationSerializer(many=True, read_only=True)  # Сериализатор для регистраций пользователя на конференции
+    user_reviews = ShowReviewSerializer(many=True, read_only=True)  # Сериализатор для отзывов пользователя
+
+    class Meta:
+        model = User
+        fields = ['username', 'authored_conferences', 'registered_in', 'user_reviews']
+    # Определяем, какие поля модели будут сериализованы, включая дополнительную информацию о конференциях, регистрациях и отзывах пользователя
+</code></pre>
+<p>`</p>
+<h2 id="_2">Крвткое пояснение</h2>
+<p>Конечная цель сериализаторов в Django REST Framework - преобразование объектов Python (моделей Django) в форматы данных, которые легко обрабатывать через HTTP запросы (например, JSON).</p>
+<h2 id="viewspy">views.py</h2>
+<p>`</p>
+<pre><code>class ConfrenceViewSet(viewsets.ModelViewSet):
+    # Viewset для модели Conference, позволяющий выполнять различные действия над данными (list, retrieve, create, update, delete)
+    queryset = Conference.objects.all()  # Указываем набор объектов для работы с viewset
+    permission_classes = [IsAuthenticated]  # Устанавливаем разрешения для доступа к данным
+
+    def get_serializer_class(self):
+        # Определяем класс сериализатора в зависимости от выполняемого действия
+        if self.action in ['list', 'retrieve']:
+            print(1)  # Для отладки: печатаем '1' при выполнении действий list или retrieve
+            return serializers.ShowConferenceSerializer  # Используем определенный сериализатор для действий list и retrieve
+        return serializers.ConferenceSerializer  # Для других действий используем другой сериализатор
+
+    def perform_create(self, serializer):
+        # Выполняем дополнительные действия при создании объекта
+        serializer.save(author=self.request.user)  # Устанавливаем автора конференции как текущего пользователя
+
+class TopicViewSet(viewsets.ModelViewSet):
+    # Viewset для модели Topic
+    queryset = Topic.objects.all()  # Указываем набор объектов для работы с viewset
+    serializer_class = serializers.TopicSerializer  # Указываем класс сериализатора
+
+    permission_classes = [IsAuthenticated]  # Устанавливаем разрешения для доступа к данным
+
+class RegistrationViewSet(viewsets.ModelViewSet):
+    # Viewset для модели Registration
+    queryset = Registration.objects.all()  # Указываем набор объектов для работы с viewset
+
+    def get_permissions(self):
+        # Определяем разрешения в зависимости от выполняемого действия
+        if self.action in ['list', 'retrieve']:
+            return [IsAuthenticated]  # Для list и retrieve используем разрешения только для аутентифицированных пользователей
+        return [IsAuthenticated, permissions.RegistrationsPermissions]  # Для других действий добавляем кастомные разрешения
+
+    def get_serializer_class(self):
+        # Определяем класс сериализатора в зависимости от выполняемого действия
+        if self.action in ['list', 'retrieve']:
+            return serializers.ShowRegistrationSerializer  # Используем определенный сериализатор для действий list и retrieve
+        return serializers.RegistrationSerializer  # Для других действий используем другой сериализатор
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    # Viewset для модели Review
+    queryset = Review.objects.all()  # Указываем набор объектов для работы с viewset
+    permission_classes = [IsAuthenticated]  # Устанавливаем разрешения для доступа к данным
+
+    def get_serializer_class(self):
+        # Определяем класс сериализатора в зависимости от выполняемого действия
+        if self.action in ['list', 'retrieve']:
+            return serializers.ShowReviewSerializer  # Используем определенный сериализатор для действий list и retrieve
+        return serializers.ReviewSerializer  # Для других действий используем другой сериализатор
+
+class ProfileViewSet(RetrieveModelMixin, viewsets.GenericViewSet):
+    # Viewset для профиля пользователя
+    queryset = User.objects.all()  # Указываем набор объектов для работы с viewset
+    serializer_class = serializers.ProfileSerilaizer  # Указываем класс сериализатора
+
+    permission_classes = [IsAuthenticated, permissions.ProfilePermissions]
+    # Устанавливаем разрешения для доступа к данным пользователя, включая кастомные разрешения
+</code></pre>
+<p>`</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

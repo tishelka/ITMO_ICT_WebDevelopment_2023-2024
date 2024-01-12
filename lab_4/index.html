@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №4 - Документации ко всем ЛР</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Документации ко всем ЛР</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_2/" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_3/" class="nav-link">Лабораторная работа №3</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №4</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_3/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no4" class="nav-link">Лабораторная работа №4</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Общая инфрмация</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#signinpagetsx" class="nav-link">SignInPage.tsx</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#mainpagetsx" class="nav-link">MainPage.tsx</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conferencecreatepagetsx" class="nav-link">ConferenceCreatePage.tsx</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conferencepagetsx" class="nav-link">ConferencePage.tsx</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conferencetsx" class="nav-link">Conference.tsx</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conferenceeditpagetsx" class="nav-link">ConferenceEditPage.tsx</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no4">Лабораторная работа №4</h1>
+<h2 id="_1">Общая инфрмация</h2>
+<p>Для реализации фронтенда был использован TypeScript, React, CSS-Modules (SASS). Для роутинга использовался React Router, для отправки запросов на бэкенд - axios.</p>
+<h2 id="signinpagetsx">SignInPage.tsx</h2>
+<p>Функция для регистрации</p>
+<pre><code>const handleRegister = async () =&gt; {
+    try {
+      const response = await axios.post(&quot;http://127.0.0.1:8000/auth/users/&quot;, {
+        email: email,
+        username: userName,
+        password: password,
+      });
+
+      if (response.status === 201) {
+        const userId = response.data.id;
+        localStorage.setItem(&quot;authToken&quot;, response.data.auth_token);
+        localStorage.setItem(&quot;userId&quot;, userId);
+        localStorage.setItem(&quot;username&quot;, userName);
+        alert(&quot;Регистрация успешна&quot;);
+        navigate(&quot;/main&quot;);
+      }
+    } catch (error) {
+      console.error(&quot;Ошибка при регистрации:&quot;, error);
+    }
+  };
+</code></pre>
+<p>Функция для логина</p>
+<pre><code>const handleLogin = async () =&gt; {
+    try {
+      const loginResponse = await axios.post(
+        &quot;http://127.0.0.1:8000/auth/token/login/&quot;,
+        {
+          username: userName,
+          password: password,
+        }
+      );
+
+      if (loginResponse.status === 200) {
+        localStorage.setItem(&quot;authToken&quot;, loginResponse.data.auth_token);
+        const userResponse = await axios.get(
+          &quot;http://127.0.0.1:8000/auth/users/me/&quot;,
+          {
+            headers: {
+              Authorization: `Token ${loginResponse.data.auth_token}`,
+            },
+          }
+        );
+
+        if (userResponse.status === 200) {
+          const userId = userResponse.data.id;
+          localStorage.setItem(&quot;userId&quot;, userId);
+          localStorage.setItem(&quot;username&quot;, userName);
+          alert(&quot;Вход выполнен успешно&quot;);
+          navigate(&quot;/main&quot;);
+        }
+      }
+    } catch (error) {
+      console.error(&quot;Ошибка при входе:&quot;, error);
+    }
+  };
+</code></pre>
+<h2 id="mainpagetsx">MainPage.tsx</h2>
+<p>Функци для получения конференций пользователя и других пользователей с бэкенда</p>
+<pre><code>useEffect(() =&gt; {
+    const fetchConferences = async () =&gt; {
+      try {
+        if (!authToken) {
+          console.error(&quot;Токен отсутствует в localStorage&quot;);
+          return;
+        }
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+
+        const response = await axios.get(
+          &quot;http://127.0.0.1:8000/main/conferences/&quot;,
+          { headers }
+        );
+
+        if (response.status === 200) {
+          const myConfs = response.data.filter(
+            (conference: ConferenceData) =&gt; conference.author === username
+          );
+          const otherConfs = response.data.filter(
+            (conference: ConferenceData) =&gt; conference.author !== username
+          );
+
+          setMyConferences(myConfs);
+          setConferences(otherConfs);
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при получении списка конференций:&quot;, error);
+      }
+    };
+
+    fetchConferences();
+  }, [authToken, username]);
+</code></pre>
+<h2 id="conferencecreatepagetsx">ConferenceCreatePage.tsx</h2>
+<p>Функция для получения тем с бэкенда (для последующего его использования при создании конференции)</p>
+<pre><code>  useEffect(() =&gt; {
+    const fetchTopics = async () =&gt; {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+
+        const response = await axios.get(&quot;http://127.0.0.1:8000/main/topics/&quot;, {
+          headers,
+        });
+        setTopics(response.data);
+      } catch (error) {
+        console.error(&quot;Ошибка при загрузке тем:&quot;, error);
+      }
+    };
+
+    fetchTopics();
+  }, [authToken]);
+</code></pre>
+<p>Функция для отправки формы создания конференции</p>
+<pre><code>  const handleSubmit = async (event: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+    event.preventDefault();
+
+    const headers = {
+      Authorization: `Token ${authToken}`,
+    };
+
+    const conferenceData = {
+      title,
+      location,
+      start_date: startDate,
+      end_date: endDate,
+      description,
+      participation_conditions: conditions,
+      topics: selectedTopic,
+    };
+
+    try {
+      const response = await axios.post(
+        &quot;http://127.0.0.1:8000/main/conferences/&quot;,
+        conferenceData,
+        { headers }
+      );
+      if (response.status === 201) {
+        alert(&quot;Конференция успешно создана&quot;);
+      }
+    } catch (error) {
+      console.error(&quot;Ошибка при создании конференции:&quot;, error);
+    }
+  };
+</code></pre>
+<h2 id="conferencepagetsx">ConferencePage.tsx</h2>
+<p>Функция для получения деталей конференции и отзывов с бэкенда</p>
+<pre><code>  useEffect(() =&gt; {
+    const fetchConferenceDetails = async () =&gt; {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+        const response = await axios.get(
+          `http://127.0.0.1:8000/main/conferences/${id}/`,
+          { headers }
+        );
+
+        if (response.status === 200) {
+          setConference(response.data);
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при получении информации о конференции:&quot;, error);
+      }
+    };
+
+    const fetchReviews = async () =&gt; {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+        const response = await axios.get(
+          `http://127.0.0.1:8000/main/reviews/`,
+          { headers }
+        );
+
+        if (response.status === 200) {
+          const filteredReviews = response.data.filter(
+            (review: Review) =&gt; review.conference.id === Number(id)
+          );
+          setReviews(filteredReviews);
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при получении отзывов:&quot;, error);
+      }
+    };
+
+    fetchConferenceDetails();
+    fetchReviews();
+  }, [id, authToken]);
+</code></pre>
+<p>Функция для отправки формы написания отзыва</p>
+<pre><code>  const handleReviewSubmit = async (
+    event: React.FormEvent&lt;HTMLFormElement&gt;
+  ) =&gt; {
+    event.preventDefault();
+    try {
+      const headers = {
+        Authorization: `Token ${authToken}`,
+      };
+
+      const currentDate = new Date().toISOString().split(&quot;T&quot;)[0];
+
+      const reviewData = {
+        text: reviewText,
+        comment_text: commentText,
+        rating: reviewRating,
+        conference: Number(id),
+        comment_date: currentDate,
+        user: userId,
+      };
+      const response = await axios.post(
+        `http://127.0.0.1:8000/main/reviews/`,
+        reviewData,
+        { headers }
+      );
+      if (response.status === 201) {
+        setReviews([...reviews, response.data]);
+        setReviewText(&quot;&quot;);
+        setCommentText(&quot;&quot;);
+        setReviewRating(1);
+      }
+    } catch (error) {
+      console.error(&quot;Ошибка при отправке отзыва:&quot;, error);
+    }
+  };
+</code></pre>
+<h2 id="conferencetsx">Conference.tsx</h2>
+<p>Функция для регистрации пользователя на конференцию</p>
+<pre><code>import { useEffect, useState } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+import { useNavigate, useParams } from &quot;react-router-dom&quot;;
+import style from &quot;./ConferencePage.module.scss&quot;;
+import { ConferenceData } from &quot;../MainPage&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+
+type Review = {
+  id: number;
+  text: string;
+  comment_text: string;
+  rating: number;
+  conference: { id: number; author: string; title: string };
+  user: number;
+  comment_date: string;
+};
+
+export const ConferencePage = () =&gt; {
+  const { id } = useParams&lt;{ id: string }&gt;();
+  const [conference, setConference] = useState&lt;ConferenceData | null&gt;(null);
+  const [reviews, setReviews] = useState&lt;Review[]&gt;([]);
+  const [reviewText, setReviewText] = useState(&quot;&quot;);
+  const [commentText, setCommentText] = useState(&quot;&quot;);
+  const [reviewRating, setReviewRating] = useState(1);
+  const authToken = localStorage.getItem(&quot;authToken&quot;);
+  const userId = localStorage.getItem(&quot;userId&quot;);
+  const username = localStorage.getItem(&quot;username&quot;);
+  const nav = useNavigate();
+
+  useEffect(() =&gt; {
+    const fetchConferenceDetails = async () =&gt; {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+        const response = await axios.get(
+          `http://127.0.0.1:8000/main/conferences/${id}/`,
+          { headers }
+        );
+
+        if (response.status === 200) {
+          setConference(response.data);
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при получении информации о конференции:&quot;, error);
+      }
+    };
+
+    const fetchReviews = async () =&gt; {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+        const response = await axios.get(
+          `http://127.0.0.1:8000/main/reviews/`,
+          { headers }
+        );
+
+        if (response.status === 200) {
+          const filteredReviews = response.data.filter(
+            (review: Review) =&gt; review.conference.id === Number(id)
+          );
+          setReviews(filteredReviews);
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при получении отзывов:&quot;, error);
+      }
+    };
+
+    fetchConferenceDetails();
+    fetchReviews();
+  }, [id, authToken]);
+
+  const handleReviewSubmit = async (
+    event: React.FormEvent&lt;HTMLFormElement&gt;
+  ) =&gt; {
+    event.preventDefault();
+    try {
+      const headers = {
+        Authorization: `Token ${authToken}`,
+      };
+
+      const currentDate = new Date().toISOString().split(&quot;T&quot;)[0];
+
+      const reviewData = {
+        text: reviewText,
+        comment_text: commentText,
+        rating: reviewRating,
+        conference: Number(id),
+        comment_date: currentDate,
+        user: userId,
+      };
+      const response = await axios.post(
+        `http://127.0.0.1:8000/main/reviews/`,
+        reviewData,
+        { headers }
+      );
+      if (response.status === 201) {
+        setReviews([...reviews, response.data]);
+        setReviewText(&quot;&quot;);
+        setCommentText(&quot;&quot;);
+        setReviewRating(1);
+      }
+    } catch (error) {
+      console.error(&quot;Ошибка при отправке отзыва:&quot;, error);
+    }
+  };
+
+  if (!conference) {
+    return &lt;div&gt;Конференция не найдена&lt;/div&gt;;
+  }
+
+  const handleDelete = async () =&gt; {
+    if (window.confirm(&quot;Вы уверены, что хотите удалить эту конференцию?&quot;)) {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+        const response = await axios.delete(
+          `http://127.0.0.1:8000/main/conferences/${id}/`,
+          { headers }
+        );
+
+        if (response.status === 204) {
+          alert(&quot;Конференция успешно удалена&quot;);
+          nav(&quot;/main&quot;);
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при удалении конференции:&quot;, error);
+        alert(&quot;Не удалось удалить конференцию&quot;);
+      }
+    }
+  };
+
+  return (
+    &lt;div className={style.confPageContainer}&gt;
+      &lt;div className={style.confInfo}&gt;
+        &lt;h1&gt;{conference.title}&lt;/h1&gt;
+        &lt;p&gt;Автор: {conference.author}&lt;/p&gt;
+        {conference.topics.map((topic) =&gt; (
+          &lt;p&gt;Тема: {topic.name}&lt;/p&gt;
+        ))}
+        &lt;p&gt;Описание: {conference.description}&lt;/p&gt;
+        &lt;p&gt;Место проведения: {conference.location}&lt;/p&gt;
+        &lt;p&gt;Дата начала: {conference.start_date}&lt;/p&gt;
+        &lt;p&gt;Дата окончания: {conference.end_date}&lt;/p&gt;
+        &lt;p&gt;Условия участия: {conference.participation_conditions}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;&gt;
+        {username == conference.author ? (
+          &lt;&gt;
+            &lt;Link to={`/conference_edit/${id}`}&gt;
+              &lt;button className={style.submitBtn}&gt;Редактировать&lt;/button&gt;
+            &lt;/Link&gt;
+            &lt;button className={style.deleteBtn} onClick={handleDelete}&gt;
+              Удалить
+            &lt;/button&gt;
+          &lt;/&gt;
+        ) : (
+          &lt;&gt;&lt;/&gt;
+        )}
+      &lt;/&gt;
+      &lt;div className={style.confPageReviews}&gt;
+        &lt;h2&gt;Отзывы:&lt;/h2&gt;
+        {reviews.map((review) =&gt; (
+          &lt;div key={review.id} className={style.confReview}&gt;
+            &lt;p&gt;Текст отзыва: {review.text}&lt;/p&gt;
+            &lt;p&gt;Комментарий: {review.comment_text}&lt;/p&gt;
+            &lt;p&gt;Рейтинг: {review.rating}&lt;/p&gt;
+            &lt;p&gt;Дата комментария: {review.comment_date}&lt;/p&gt;
+          &lt;/div&gt;
+        ))}
+        &lt;form onSubmit={handleReviewSubmit} className={style.confReviewForm}&gt;
+          &lt;h2&gt;Оставьте отзыв&lt;/h2&gt;
+          &lt;textarea
+            className={style.confArea}
+            value={reviewText}
+            onChange={(e) =&gt; setReviewText(e.target.value)}
+            placeholder=&quot;Текст отзыва&quot;
+            required
+          /&gt;
+          &lt;textarea
+            className={style.confArea}
+            value={commentText}
+            onChange={(e) =&gt; setCommentText(e.target.value)}
+            placeholder=&quot;Комментарий к отзыву&quot;
+          /&gt;
+          &lt;select
+            className={style.confOrd}
+            value={reviewRating}
+            onChange={(e) =&gt; setReviewRating(Number(e.target.value))}
+            required
+          &gt;
+            {[...Array(10).keys()].map((number) =&gt; (
+              &lt;option key={number + 1} value={number + 1}&gt;
+                {number + 1}
+              &lt;/option&gt;
+            ))}
+          &lt;/select&gt;
+          &lt;button className={style.submitBtn} type=&quot;submit&quot;&gt;
+            Оставить отзыв
+          &lt;/button&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<h2 id="conferenceeditpagetsx">ConferenceEditPage.tsx</h2>
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+import style from &quot;./ConferenceEditPage.module.scss&quot;;
+import { useNavigate, useParams } from &quot;react-router-dom&quot;;
+import { ConferenceData, TopicData } from &quot;../MainPage&quot;;
+
+export const ConferenceEditPage = () =&gt; {
+  const { id } = useParams&lt;{ id: string }&gt;();
+  const [title, setTitle] = useState&lt;string&gt;(&quot;&quot;);
+  const [location, setLocation] = useState&lt;string&gt;(&quot;&quot;);
+  const [startDate, setStartDate] = useState&lt;string&gt;(&quot;&quot;);
+  const [endDate, setEndDate] = useState&lt;string&gt;(&quot;&quot;);
+  const [description, setDescription] = useState&lt;string&gt;(&quot;&quot;);
+  const [conditions, setConditions] = useState&lt;string&gt;(&quot;&quot;);
+  const [topics, setTopics] = useState&lt;TopicData[]&gt;([]);
+  const [selectedTopic, setSelectedTopic] = useState&lt;number[]&gt;([]);
+  const authToken = localStorage.getItem(&quot;authToken&quot;);
+  const [conference, setConference] = useState&lt;ConferenceData | null&gt;(null);
+  const nav = useNavigate();
+
+  useEffect(() =&gt; {
+    const fetchTopics = async () =&gt; {
+      try {
+        const headers = {
+          Authorization: `Token ${authToken}`,
+        };
+
+        const response = await axios.get(&quot;http://127.0.0.1:8000/main/topics/&quot;, {
+          headers,
+        });
+        setTopics(response.data);
+      } catch (error) {
+        console.error(&quot;Ошибка при загрузке тем:&quot;, error);
+      }
+    };
+
+    fetchTopics();
+  }, [authToken]);
+
+  useEffect(() =&gt; {
+    const fetchConferenceDetails = async () =&gt; {
+      try {
+        const headers = { Authorization: `Token ${authToken}` };
+        const response = await axios.get(
+          `http://127.0.0.1:8000/main/conferences/${id}/`,
+          { headers }
+        );
+        if (response.status === 200) {
+          const conference = response.data;
+          setConference(conference);
+          setTitle(conference.title);
+          setLocation(conference.location);
+          setStartDate(conference.start_date);
+          setEndDate(conference.end_date);
+          setDescription(conference.description);
+          setConditions(conference.participation_conditions);
+          setSelectedTopic(
+            conference.topics.map((topic: TopicData) =&gt; topic.id)
+          );
+        }
+      } catch (error) {
+        console.error(&quot;Ошибка при получении информации о конференции:&quot;, error);
+      }
+    };
+
+    fetchConferenceDetails();
+  }, [id, authToken]);
+
+  const handleTopicChange = (e: React.ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {
+    const selectedId = parseInt(e.target.value, 10);
+    setSelectedTopic([...selectedTopic, selectedId]);
+  };
+
+  const handleSubmit = async (event: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {
+    event.preventDefault();
+    const conferenceData = {
+      title,
+      location,
+      start_date: startDate,
+      end_date: endDate,
+      description,
+      participation_conditions: conditions,
+      topics: selectedTopic,
+    };
+
+    try {
+      const headers = { Authorization: `Token ${authToken}` };
+      const response = await axios.put(
+        `http://127.0.0.1:8000/main/conferences/${id}/`,
+        conferenceData,
+        { headers }
+      );
+      if (response.status === 200) {
+        alert(&quot;Конференция успешно обновлена&quot;);
+        nav(`/conference/${id}`);
+      }
+    } catch (error) {
+      console.error(&quot;Ошибка при обновлении конференции:&quot;, error);
+    }
+  };
+
+  if (!conference) {
+    return &lt;div&gt;Загрузка...&lt;/div&gt;;
+  }
+
+  return (
+    &lt;div className={style.editContainer}&gt;
+      &lt;h1&gt;Создание новой конференции&lt;/h1&gt;
+      &lt;form onSubmit={handleSubmit} className={style.createForm}&gt;
+        &lt;input
+          className={style.createOrd}
+          type=&quot;text&quot;
+          value={title}
+          onChange={(e) =&gt; setTitle(e.target.value)}
+          placeholder=&quot;Название конференции&quot;
+          required
+        /&gt;
+        &lt;select
+          className={style.createOrd}
+          onChange={handleTopicChange}
+          required
+        &gt;
+          &lt;option value=&quot;&quot;&gt;Выберите тему&lt;/option&gt;
+          {topics.map((topic) =&gt; (
+            &lt;option key={topic.id} value={topic.id}&gt;
+              {topic.name}
+            &lt;/option&gt;
+          ))}
+        &lt;/select&gt;
+        &lt;input
+          className={style.createOrd}
+          type=&quot;text&quot;
+          value={location}
+          onChange={(e) =&gt; setLocation(e.target.value)}
+          placeholder=&quot;Местоположение&quot;
+          required
+        /&gt;
+        &lt;input
+          className={style.createOrd}
+          type=&quot;date&quot;
+          value={startDate}
+          onChange={(e) =&gt; setStartDate(e.target.value)}
+          placeholder=&quot;Дата начала&quot;
+          required
+        /&gt;
+        &lt;input
+          className={style.createOrd}
+          type=&quot;date&quot;
+          value={endDate}
+          onChange={(e) =&gt; setEndDate(e.target.value)}
+          placeholder=&quot;Дата окончания&quot;
+          required
+        /&gt;
+        &lt;textarea
+          className={style.createArea}
+          value={description}
+          onChange={(e) =&gt; setDescription(e.target.value)}
+          placeholder=&quot;Описание&quot;
+          required
+        /&gt;
+        &lt;textarea
+          className={style.createArea}
+          value={conditions}
+          onChange={(e) =&gt; setConditions(e.target.value)}
+          placeholder=&quot;Условия участия&quot;
+          required
+        /&gt;
+        &lt;button type=&quot;submit&quot; className={style.submitBtn}&gt;
+          Отредактировать конференцию
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
